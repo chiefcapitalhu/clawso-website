@@ -1,0 +1,10 @@
+{
+  "name": "clawso-labs-command-deck",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Immersive Clawso Labs command deck website prototype.",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "start": "python3 -m http.server 4173"
+  }
+}

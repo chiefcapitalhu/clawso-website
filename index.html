@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Clawso Labs 帮助企业把零散 AI 工具重构为可执行、可管理、可交付的 AI 生产系统。"
+    />
+    <title>Clawso Labs Command Deck</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <canvas id="space-field" aria-hidden="true"></canvas>
+
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="deck-glow" aria-hidden="true"></div>
+    <div class="cursor-core" id="cursor-core" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+    <main id="app">
+      <section class="boarding-screen is-active" id="boarding" aria-labelledby="boarding-title">
+        <div class="system-frame">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+
+          <div class="language-switcher boarding-language" aria-label="Language">
+            <button type="button" class="is-active" data-lang="zh">中</button>
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="ja">日</button>
+          </div>
+
+          <p class="kicker" data-i18n="boarding.kicker">ENTERPRISE AI TRANSFORMATION ACCESS</p>
+          <h1 id="boarding-title" data-i18n="boarding.title">CLAWSO LABS COMMAND SYSTEM</h1>
+          <div class="terminal-prompt">
+            <span data-i18n="boarding.detected">检测到企业 AI 化请求</span>
+            <strong data-i18n="boarding.question">是否进入 Clawso Labs 指挥舱？</strong>
+          </div>
+
+          <div class="boarding-actions">
+            <button class="control-button primary" id="enter-button" type="button">
+              <span data-i18n="boarding.enter">登舰进入</span>
+            </button>
+            <button class="control-button ghost" id="preview-button" type="button">
+              <span data-i18n="boarding.later">稍后查看</span>
+            </button>
+          </div>
+
+          <div class="system-readout">
+            <span data-i18n="boarding.request">REQUEST ID: CLS-AI-0520</span>
+            <span data-i18n="boarding.status">STATUS: AWAITING CONFIRMATION</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="boot-screen" id="boot" aria-live="polite" aria-label="系统启动序列">
+        <div class="boot-core">
+          <div class="core-ring ring-a"></div>
+          <div class="core-ring ring-b"></div>
+          <div class="core-ring ring-c"></div>
+          <div class="core-dot"></div>
+        </div>
+        <div class="boot-copy">
+          <p class="boot-status" data-i18n="boot.status">身份确认中...</p>
+          <ul id="boot-lines" class="boot-lines"></ul>
+        </div>
+      </section>
+
+      <div class="site-shell" id="site-shell">
+        <div class="arrival-rail" aria-hidden="true">
+          <span>ARRIVAL SEQUENCE</span>
+          <span>COMMAND DECK LOCKED</span>
+          <span>AI NATIVE MODE ONLINE</span>
+        </div>
+
+        <header class="top-hud">
+          <a class="brand-lockup" href="#command-deck" aria-label="Clawso Labs Command Deck">
+            <span class="brand-mark"><img src="./assets/logo-cutout.png" alt="" /></span>
+            <span>
+              <strong>Clawso Labs</strong>
+            </span>
+          </a>
+
+          <nav class="deck-nav" aria-label="页面导航">
+            <a href="#mission">Mission Scan</a>
+            <a href="#capability">Capability</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#products">Hangar</a>
+            <a href="#contact">Launch</a>
+          </nav>
+
+          <div class="language-switcher" aria-label="Language">
+            <button type="button" class="is-active" data-lang="zh">中</button>
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="ja">日</button>
+          </div>
+        </header>
+
+        <section class="hero-deck" id="command-deck">
+          <div class="hero-copy">
+            <div class="mission-status">
+              <span>ARRIVAL SEQUENCE / 0520</span>
+              <span class="status-dot">SYSTEM READY</span>
+            </div>
+            <p class="section-code" data-i18n="hero.code">COMMAND DECK / ENTERPRISE AI OPS</p>
+            <h2 data-i18n="hero.title">企业 AI 指挥舱</h2>
+            <p data-i18n="hero.body">
+              Clawso Labs 将分散的 AI 工具、流程、知识与 Agent 编队，重构为企业可执行、可管理、可交付的 AI 生产系统。
+            </p>
+            <div class="hero-actions">
+              <a class="control-button primary" href="#contact"><span data-i18n="hero.primary">启动 AI 化评估</span></a>
+              <a class="control-button ghost" href="#architecture"><span data-i18n="hero.secondary">查看系统架构</span></a>
+            </div>
+          </div>
+
+          <div class="cockpit" aria-label="Clawso Labs 企业 AI 指挥舱示意">
+            <div class="depth-grid" aria-hidden="true"></div>
+            <div class="cockpit-canopy"></div>
+            <div class="hud-target" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="ai-core-panel">
+              <div class="ai-core">
+                <span id="core-label">AI CORE</span>
+              </div>
+              <div class="radar-orbit orbit-one"></div>
+              <div class="radar-orbit orbit-two"></div>
+              <div class="radar-sweep"></div>
+            </div>
+            <div class="console-wing left">
+              <span>Workflow Core</span>
+              <b>ONLINE</b>
+            </div>
+            <div class="console-wing right">
+              <span>Agent System</span>
+              <b>ONLINE</b>
+            </div>
+            <div class="core-readout">
+              <span id="module-status">MODE: AI NATIVE ENGINE</span>
+              <strong id="module-title" data-i18n="modules.ai.title">AI Native Engine</strong>
+              <p id="module-copy" data-i18n="modules.ai.body">把业务场景转译成 AI 原生任务结构，让模型能力进入真实工作流。</p>
+            </div>
+            <div class="module-bank">
+              <button class="is-active" type="button" data-module="ai">AI Native</button>
+              <button type="button" data-module="workflow">Workflow</button>
+              <button type="button" data-module="agent">Agent</button>
+              <button type="button" data-module="radar">Radar</button>
+              <button type="button" data-module="delivery">Delivery</button>
+            </div>
+          </div>
+          <aside class="deck-companion" id="deck-companion" aria-live="polite">
+            <div class="bot-scan" aria-hidden="true"></div>
+            <div class="bot-shell" aria-hidden="true">
+              <span class="bot-antenna"></span>
+              <span class="bot-eye"></span>
+              <span class="bot-eye"></span>
+              <span class="bot-mouth"></span>
+            </div>
+            <div>
+              <span class="bot-status">OPS DROID</span>
+              <strong id="companion-line">Command deck standing by.</strong>
+            </div>
+          </aside>
+        </section>
+
+        <section class="mission-band deck-section" id="mission" data-section="mission">
+          <div class="section-heading">
+            <p class="section-code">MISSION SCAN</p>
+            <h2 data-i18n="mission.title">先扫描企业 AI 化断点，再进入系统重构。</h2>
+          </div>
+          <div class="mission-scanner" aria-hidden="true">
+            <div class="scanner-core">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="scanner-readouts">
+              <span>TOOL FRAGMENTATION</span>
+              <span>WORKFLOW BREAKPOINT</span>
+              <span>DELIVERY GAP</span>
+            </div>
+          </div>
+          <div class="scan-grid">
+            <article>
+              <span>01</span>
+              <h3 data-i18n="mission.card1.title">工具碎片化</h3>
+              <p data-i18n="mission.card1.body">AI 能力散落在个人账号、插件和临时脚本里，无法形成企业级生产链路。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3 data-i18n="mission.card2.title">流程不可执行</h3>
+              <p data-i18n="mission.card2.body">知识、审批、交付和复盘仍靠人工接力，AI 只能停留在辅助层。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3 data-i18n="mission.card3.title">结果难以交付</h3>
+              <p data-i18n="mission.card3.body">企业需要的是稳定输出、权限治理、质量追踪和业务闭环，而不是一次性演示。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="capability-console deck-section" id="capability" data-section="capability">
+          <div class="section-heading">
+            <p class="section-code">CAPABILITY CONSOLE</p>
+            <h2 data-i18n="capability.title">五大能力模块，组成企业 AI 生产系统。</h2>
+          </div>
+          <div class="capability-grid">
+            <article data-module="ai">
+              <div class="capability-thumb" style="--thumb: url('../assets/capability/ai-native.jpg')"></div>
+              <div class="module-light"></div>
+              <h3>AI Native Engine</h3>
+              <p data-i18n="capability.card1">把业务场景转译成 AI 原生任务结构，让模型能力进入真实工作流。</p>
+            </article>
+            <article data-module="workflow">
+              <div class="capability-thumb" style="--thumb: url('../assets/capability/workflow-core.jpg')"></div>
+              <div class="module-light"></div>
+              <h3>Workflow Core</h3>
+              <p data-i18n="capability.card2">重构跨部门流程，把人工接力变成可编排、可追踪、可复用的执行链。</p>
+            </article>
+            <article data-module="agent">
+              <div class="capability-thumb" style="--thumb: url('../assets/capability/agent-fleet.jpg')"></div>
+              <div class="module-light"></div>
+              <h3>Agent System</h3>
+              <p data-i18n="capability.card3">设计企业级 Agent 编队，让角色、权限、上下文和结果责任清晰落位。</p>
+            </article>
+            <article data-module="radar">
+              <div class="capability-thumb" style="--thumb: url('../assets/capability/knowledge-radar.jpg')"></div>
+              <div class="module-light"></div>
+              <h3>Knowledge Radar</h3>
+              <p data-i18n="capability.card4">连接企业知识资产，建立能被 AI 调用、校验和更新的知识雷达。</p>
+            </article>
+            <article data-module="delivery">
+              <div class="capability-thumb" style="--thumb: url('../assets/capability/result-delivery.jpg')"></div>
+              <div class="module-light"></div>
+              <h3>Result Delivery</h3>
+              <p data-i18n="capability.card5">把 AI 输出接入交付标准、质量门禁和业务指标，确保结果能被采用。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="architecture-bay deck-section" id="architecture" data-section="architecture">
+          <div class="section-heading">
+            <p class="section-code">ARCHITECTURE BAY</p>
+            <h2 data-i18n="architecture.title">从业务请求到 AI 交付的舰桥架构。</h2>
+          </div>
+          <div class="bay-vista" style="--vista: url('../assets/architecture-bay.jpg')" aria-hidden="true"></div>
+          <div class="architecture-map">
+            <div class="arch-node">Business Signal</div>
+            <div class="arch-track"></div>
+            <div class="arch-node">Workflow Core</div>
+            <div class="arch-track"></div>
+            <div class="arch-node core-node">AI Command Layer</div>
+            <div class="arch-track"></div>
+            <div class="arch-node">Agent Fleet</div>
+            <div class="arch-track"></div>
+            <div class="arch-node">Delivered Result</div>
+          </div>
+        </section>
+
+        <section class="product-hangar deck-section" id="products" data-section="products">
+          <div class="section-heading">
+            <p class="section-code">PRODUCT HANGAR</p>
+            <h2 data-i18n="products.title">Clawso 是产品，不是全部舰队。</h2>
+          </div>
+          <div class="hangar-layout">
+          <article class="hangar-card" style="--hangar-thumb: url('../assets/clawso-product.jpg')">
+              <p>CLAWSO PRODUCT LINE</p>
+              <h3 data-i18n="products.card1.title">面向 AI 工作流落地的核心产品</h3>
+              <p data-i18n="products.card1.body">承载流程编排、Agent 协同、知识调用与结果交付，让企业 AI 系统从概念进入日常运行。</p>
+            </article>
+          <article class="hangar-card muted" style="--hangar-thumb: url('../assets/labs-services.jpg')">
+              <p>LABS SERVICE LINE</p>
+              <h3 data-i18n="products.card2.title">企业 AI 化咨询、架构与实施</h3>
+              <p data-i18n="products.card2.body">围绕具体业务场景完成诊断、方案设计、系统搭建、团队导入和持续优化。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="scenario-deck deck-section" id="scenario" data-section="scenario">
+          <div class="section-heading">
+            <p class="section-code">SCENARIO DECK</p>
+            <h2 data-i18n="scenario.title">适合从“试用 AI”走向“运行 AI”的企业。</h2>
+          </div>
+          <div class="scenario-list">
+            <span data-i18n="scenario.item1">销售与客户成功知识系统</span>
+            <span data-i18n="scenario.item2">研发与产品 Agent 协作链</span>
+            <span data-i18n="scenario.item3">运营流程自动化指挥台</span>
+            <span data-i18n="scenario.item4">企业知识库 AI 原生改造</span>
+            <span data-i18n="scenario.item5">管理层 AI 决策支持系统</span>
+          </div>
+        </section>
+
+        <section class="launch-contact deck-section" id="contact" data-section="contact">
+          <div>
+            <p class="section-code">LAUNCH CONTACT</p>
+            <h2 data-i18n="contact.title">准备启动企业 AI 指挥舱？</h2>
+            <p data-i18n="contact.body">发送一个业务场景，Clawso Labs 将从流程、知识、Agent 与交付结果四个层面完成初步扫描。</p>
+          </div>
+          <a class="control-button primary" href="mailto:chiefcapitalhu@gmail.com"><span data-i18n="contact.button">联系 Clawso Labs</span></a>
+          <div class="ignition-art" aria-hidden="true"></div>
+        </section>
+
+        <nav class="mobile-dock" aria-label="快速舱室导航">
+          <a href="#command-deck">CORE</a>
+          <a href="#mission">SCAN</a>
+          <a href="#capability">MODULE</a>
+          <a href="#contact">LAUNCH</a>
+        </nav>
+      </div>
+    </main>
+
+    <script src="./src/main.js"></script>
+  </body>
+</html>
