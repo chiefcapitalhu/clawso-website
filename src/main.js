@@ -628,6 +628,7 @@ function drawSpace() {
 }
 
 function revealDeck() {
+  boarding.classList.remove("is-active");
   boot.classList.remove("is-active");
   siteShell.classList.add("is-active");
   document.body.classList.add("deck-online");
