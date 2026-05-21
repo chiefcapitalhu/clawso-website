@@ -75,6 +75,17 @@ a {
   font: inherit;
 }
 
+h1,
+h2,
+h3,
+p,
+a,
+button,
+span,
+strong {
+  min-width: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -316,6 +327,7 @@ a {
   line-height: 0.9;
   letter-spacing: 0.045em;
   word-spacing: 0.04em;
+  text-wrap: balance;
   text-transform: uppercase;
   text-shadow: 0 0 18px rgba(0, 216, 255, 0.34), 0 0 2px rgba(255, 255, 255, 0.82);
   animation: signalTitle 5.8s steps(1, end) infinite;
@@ -383,6 +395,12 @@ a {
   isolation: isolate;
   overflow: hidden;
   transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.control-button span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .control-button::before {
@@ -786,6 +804,7 @@ a {
   font-size: clamp(2.15rem, 6vw, 5.8rem);
   line-height: 0.95;
   letter-spacing: 0;
+  text-wrap: balance;
 }
 
 .hero-copy p:not(.section-code),
@@ -1053,6 +1072,7 @@ a {
 .capability-grid,
 .hangar-layout {
   display: grid;
+  grid-auto-rows: 1fr;
   gap: 16px;
 }
 
@@ -1243,6 +1263,7 @@ a {
 
 .deck-section {
   position: relative;
+  scroll-margin-top: 96px;
   opacity: 0.72;
   transform: translateY(30px);
   transition: opacity 620ms ease, transform 620ms ease;
@@ -1669,6 +1690,7 @@ article p,
 .hangar-card {
   position: relative;
   z-index: 1;
+  height: 100%;
   min-height: 310px;
   display: grid;
   align-content: end;
@@ -1704,6 +1726,15 @@ article p,
 
 .hangar-card p {
   max-width: 620px;
+}
+
+html[lang="ja"] .hero-copy h2,
+html[lang="ja"] .section-heading h2,
+html[lang="ja"] .launch-contact h2,
+html[lang="ja"] article p,
+html[lang="ja"] .hangar-card p,
+html[lang="ja"] .launch-contact p:not(.section-code) {
+  line-break: strict;
 }
 
 .hangar-card > p:first-child {
@@ -2529,15 +2560,35 @@ article p,
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .capability-grid article {
+    min-height: 462px;
+  }
+
   .scan-grid,
   .hangar-layout {
     grid-template-columns: 1fr;
   }
 
+  .top-hud {
+    padding: 12px 18px;
+  }
+
+  .brand-lockup {
+    gap: 10px;
+  }
+
+  .brand-mark {
+    width: 64px;
+  }
+
   .mission-scanner {
-    grid-template-columns: 1fr;
-    min-height: 420px;
+    grid-template-columns: minmax(220px, 0.82fr) minmax(260px, 1fr);
+    min-height: 340px;
     background-position: 42% center;
+  }
+
+  .scanner-core {
+    width: min(240px, 36vw);
   }
 
   .bay-vista {
@@ -2578,45 +2629,122 @@ article p,
 
   .boarding-screen,
   .boot-screen {
-    padding: 14px;
+    padding: 16px 14px;
   }
 
   .system-frame {
-    min-height: 560px;
-    padding: 28px 18px;
+    width: min(100%, 360px);
+    min-height: min(520px, calc(100svh - 32px));
+    align-content: center;
+    gap: 16px;
+    padding: 52px 18px 26px;
   }
 
   .boarding-language {
     top: 18px;
     right: 18px;
+    transform: scale(0.94);
+    transform-origin: top right;
+  }
+
+  .kicker {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .system-frame h1 {
+    font-size: clamp(2.08rem, 10.8vw, 2.72rem);
+    line-height: 0.96;
+    letter-spacing: 0.025em;
+  }
+
+  .terminal-prompt {
+    gap: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .terminal-prompt strong {
+    font-size: clamp(1.3rem, 5.6vw, 1.58rem);
+    line-height: 1.34;
   }
 
   .system-readout {
     display: grid;
     justify-content: center;
+    gap: 8px;
+    font-size: 0.64rem;
+    line-height: 1.45;
   }
 
   .boarding-actions,
   .hero-actions {
     display: grid;
+    gap: 12px;
   }
 
   .control-button {
     width: 100%;
     min-width: 0;
+    min-height: 50px;
+    padding: 0 18px;
   }
 
   .top-hud {
     position: sticky;
-    padding: 12px 16px;
+    min-height: 74px;
+    padding: 10px 14px;
+    gap: 10px;
   }
 
   .brand-mark {
-    width: 64px;
+    width: 52px;
+  }
+
+  .brand-lockup strong {
+    font-size: 0.92rem;
   }
 
   .language-switcher button {
-    min-width: 30px;
+    min-width: 29px;
+    height: 29px;
+  }
+
+  .boot-core {
+    top: 11vh;
+    width: min(78vw, 300px);
+    opacity: 0.46;
+  }
+
+  .boot-copy {
+    width: min(100%, 360px);
+    padding: 22px 18px;
+    border-left-color: rgba(0, 240, 200, 0.54);
+    background:
+      linear-gradient(90deg, rgba(3, 6, 10, 0.94), rgba(3, 6, 10, 0.7)),
+      repeating-linear-gradient(180deg, rgba(0, 216, 255, 0.04) 0 1px, transparent 1px 12px);
+  }
+
+  .boot-status {
+    font-size: 0.78rem;
+  }
+
+  .boot-lines {
+    min-height: 0;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .boot-line {
+    padding-left: 18px;
+    font-size: 0.76rem;
+    line-height: 1.48;
+    letter-spacing: 0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .boot-line::after {
+    left: 18px;
   }
 
   .hero-copy h2,
@@ -2642,39 +2770,59 @@ article p,
 
   .hero-deck {
     width: 100%;
-    min-height: calc(100vh - 62px);
-    padding: 42px 14px 82px;
+    min-height: auto;
+    gap: 18px;
+    padding: clamp(250px, 36vh, 310px) 14px 58px;
   }
 
   .hero-deck::before {
     background:
-      linear-gradient(180deg, rgba(3, 6, 10, 0.14) 0%, rgba(3, 6, 10, 0.18) 38%, rgba(3, 6, 10, 0.82) 72%, #03060a 100%),
+      linear-gradient(180deg, rgba(3, 6, 10, 0.08) 0%, rgba(3, 6, 10, 0.16) 34%, rgba(3, 6, 10, 0.72) 62%, #03060a 100%),
       url("../assets/command-bridge-hero.png"),
       radial-gradient(circle at 65% 28%, rgba(255, 176, 32, 0.18), transparent 18rem),
       linear-gradient(135deg, #03060a, #07111b 48%, #03060a);
-    background-position: center, 42% center, center, center;
-    background-size: cover, cover, cover, cover;
+    background-position: center, 49% top, center, center;
+    background-size: cover, auto 46%, cover, cover;
   }
 
   .hero-copy {
     align-self: end;
-    padding-top: 40vh;
+    max-width: none;
+    padding: 0;
   }
 
   .mission-status {
     display: grid;
+    gap: 8px;
+    margin-bottom: 18px;
     font-size: 0.66rem;
   }
 
+  .hero-copy h2,
+  .section-heading h2,
+  .launch-contact h2 {
+    line-height: 1.04;
+  }
+
+  .hero-copy h2 {
+    font-size: clamp(2.55rem, 13vw, 3.3rem);
+  }
+
+  .hero-copy p:not(.section-code),
+  .launch-contact p:not(.section-code) {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
   .cockpit {
-    min-height: 360px;
+    min-height: 232px;
     border-radius: 0;
+    margin-bottom: 0;
+    opacity: 0.72;
   }
 
   .deck-companion {
-    right: 14px;
-    bottom: 426px;
-    width: 76px;
+    display: none;
   }
 
   .cockpit::before {
@@ -2682,11 +2830,7 @@ article p,
   }
 
   .console-wing {
-    top: auto;
-    bottom: 34%;
-    width: 42%;
-    padding: 12px;
-    font-size: 0.68rem;
+    display: none;
   }
 
   .console-wing.left {
@@ -2706,14 +2850,11 @@ article p,
 
   .module-bank button {
     min-height: 44px;
+    font-size: 0.72rem;
   }
 
   .core-readout {
-    right: 5%;
-    bottom: 17%;
-    left: 5%;
-    width: auto;
-    padding: 12px;
+    display: none;
   }
 
   .core-readout p {
@@ -2721,8 +2862,39 @@ article p,
   }
 
   .ai-core-panel {
-    width: 82%;
-    transform: translateY(-52px);
+    width: 62%;
+    transform: translateY(-24px);
+  }
+
+  .mission-scanner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 18px;
+    padding: 20px;
+    background-position: 46% center;
+  }
+
+  .scanner-core {
+    width: min(190px, 58vw);
+  }
+
+  .scanner-readouts {
+    gap: 8px;
+  }
+
+  .scanner-readouts span {
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+  }
+
+  .section-heading {
+    margin-bottom: 22px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2rem, 10vw, 2.7rem);
   }
 
   .capability-grid {
@@ -2735,11 +2907,13 @@ article p,
   .capability-grid article:nth-child(2),
   .capability-grid article:nth-child(3),
   .capability-grid article:nth-child(4) {
-    min-height: 260px;
+    min-height: 420px;
+    gap: 10px;
+    padding-bottom: 18px;
   }
 
   .capability-thumb {
-    aspect-ratio: 16 / 8.5;
+    aspect-ratio: 16 / 7.2;
   }
 
   .capability-grid article,
@@ -2748,22 +2922,88 @@ article p,
     min-height: 190px;
   }
 
+  html[lang="en"] .capability-grid article,
+  html[lang="ja"] .capability-grid article {
+    min-height: 448px;
+  }
+
+  .capability-grid article p,
+  .scan-grid article p {
+    margin-bottom: 0;
+    line-height: 1.65;
+  }
+
+  .bay-vista {
+    min-height: 238px;
+    background-position: 50% center;
+  }
+
+  .architecture-map {
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .arch-node {
+    min-height: 68px;
+    padding: 14px;
+    font-size: 0.76rem;
+  }
+
+  .arch-track {
+    height: 28px;
+  }
+
+  .hangar-layout {
+    grid-auto-rows: minmax(clamp(340px, 90vw, 370px), 1fr);
+    padding: 12px;
+  }
+
+  .hangar-card {
+    min-height: clamp(352px, 92vw, 370px);
+    padding: 22px;
+    background:
+      linear-gradient(180deg, rgba(7, 14, 24, 0.2) 0%, rgba(7, 14, 24, 0.32) 34%, rgba(7, 14, 24, 0.92) 100%),
+      linear-gradient(180deg, rgba(3, 6, 10, 0.06), rgba(3, 6, 10, 0.44)),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 28%),
+      var(--hangar-thumb) center top / cover no-repeat,
+      radial-gradient(circle at 30% 24%, rgba(0, 216, 255, 0.12), transparent 11rem),
+      rgba(7, 14, 24, 0.74);
+  }
+
   .launch-contact {
     display: grid;
     grid-template-columns: 1fr;
-    padding: 28px 18px;
+    gap: 18px;
+    padding: 26px 18px;
+  }
+
+  .launch-contact .control-button.primary {
+    min-height: 62px;
+    border-color: rgba(255, 176, 32, 0.5);
+    box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.34), 0 0 34px rgba(255, 176, 32, 0.2);
   }
 
   .ignition-art {
-    min-height: 210px;
+    min-height: 178px;
+    background-position: center;
   }
 
   .scenario-list {
     display: grid;
+    gap: 10px;
   }
 
   .scenario-list span {
-    padding-left: 22px;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    padding: 12px 14px 12px 34px;
+    line-height: 1.45;
+  }
+
+  .scenario-list span::after {
+    left: 16px;
+    opacity: 1;
   }
 
   .mobile-dock {
