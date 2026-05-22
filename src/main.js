@@ -19,11 +19,12 @@ const coreLabel = document.querySelector("#core-label");
 const deckSections = document.querySelectorAll(".deck-section");
 const trackedSections = document.querySelectorAll("#command-deck, .deck-section");
 const deckNavLinks = document.querySelectorAll('.deck-nav a[href^="#"]');
+const deckDownloadLinks = document.querySelectorAll("[data-download-deck]");
 const cursorCore = document.querySelector("#cursor-core");
 const cursorRing = document.querySelector("#cursor-ring");
 const companion = document.querySelector("#deck-companion");
 const companionLine = document.querySelector("#companion-line");
-const interactiveElements = document.querySelectorAll("a, button, .scan-grid article, .capability-grid article, .hangar-card, .arch-node, .scenario-list span");
+const interactiveElements = document.querySelectorAll("a, button, .scan-grid article, .capability-grid article, .hangar-card, .arch-node, .scenario-list span, .partner-slot");
 
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
@@ -59,6 +60,9 @@ const copy = {
       body: "Clawso Labs 将分散的 AI 工具、流程、知识与 Agent 编队，重构为企业可执行、可管理、可交付的 AI 生产系统。",
       primary: "启动 AI 化评估",
       secondary: "查看系统架构"
+    },
+    download: {
+      deck: "下载介绍资料"
     },
     mission: {
       title: "先扫描企业 AI 化断点，再进入系统重构。",
@@ -142,6 +146,24 @@ const copy = {
       item4: "企业知识库 AI 原生改造",
       item5: "管理层 AI 决策支持系统"
     },
+    partners: {
+      title: "生态伙伴接入舱",
+      body: "围绕人才、云基础设施、AI 平台与全球渠道，构建可接入企业 AI 指挥舱的伙伴泊位。",
+      slots: {
+        miit: { name: "工信人才基地" },
+        bytedance: { name: "字节跳动" },
+        alibaba: { name: "阿里巴巴" },
+        aliyun: { name: "阿里云" },
+        huaweicloud: { name: "华为云" },
+        baiducloud: { name: "百度云" },
+        volcano: { name: "火山引擎" },
+        alibabaInternational: { name: "阿里巴巴国际站" },
+        alpina: { name: "Alpina" },
+        xinghanyun: { name: "星瀚云" },
+        gangganghao: { name: "刚刚好影视" },
+        idaas: { name: "IDaas 株式会社" }
+      }
+    },
     contact: {
       title: "准备启动企业 AI 指挥舱？",
       body: "发送一个业务场景，Clawso Labs 将从流程、知识、Agent 与交付结果四个层面完成初步扫描。",
@@ -177,6 +199,9 @@ const copy = {
       body: "Clawso Labs turns scattered AI tools, workflows, knowledge, and agent fleets into an executable, governable, deliverable AI production system.",
       primary: "Start AI Readiness Scan",
       secondary: "View System Architecture"
+    },
+    download: {
+      deck: "Download Deck"
     },
     mission: {
       title: "Scan the enterprise AI breakpoints before rebuilding the system.",
@@ -260,6 +285,24 @@ const copy = {
       item4: "AI-native enterprise knowledge bases",
       item5: "Executive AI decision support systems"
     },
+    partners: {
+      title: "Partner Dock",
+      body: "Partner berths connect talent networks, cloud infrastructure, AI platforms, and global channels into the enterprise AI command deck.",
+      slots: {
+        miit: { name: "MIIT Talent Base" },
+        bytedance: { name: "ByteDance" },
+        alibaba: { name: "Alibaba Group" },
+        aliyun: { name: "Alibaba Cloud" },
+        huaweicloud: { name: "Huawei Cloud" },
+        baiducloud: { name: "Baidu AI Cloud" },
+        volcano: { name: "Volcano Engine" },
+        alibabaInternational: { name: "Alibaba.com" },
+        alpina: { name: "Alpina" },
+        xinghanyun: { name: "Xinghan Cloud" },
+        gangganghao: { name: "Gangganghao Film" },
+        idaas: { name: "IDaas Co., Ltd." }
+      }
+    },
     contact: {
       title: "Ready to launch the enterprise AI command deck?",
       body: "Send one business scenario. Clawso Labs will run an initial scan across workflow, knowledge, agents, and deliverable results.",
@@ -295,6 +338,9 @@ const copy = {
       body: "Clawso Labs は分散した AI ツール、ワークフロー、ナレッジ、Agent 編隊を、実行・管理・納品できる AI 生産システムへ再構築します。",
       primary: "AI 化診断を開始",
       secondary: "システム構成を見る"
+    },
+    download: {
+      deck: "資料をダウンロード"
     },
     mission: {
       title: "企業 AI 化の断点をスキャンし、システム再構築へ進む。",
@@ -378,6 +424,24 @@ const copy = {
       item4: "AI ネイティブな企業ナレッジベース",
       item5: "経営層向け AI 意思決定支援"
     },
+    partners: {
+      title: "パートナードック",
+      body: "人材、クラウド基盤、AI プラットフォーム、グローバルチャネルを企業 AI 指揮デッキへ接続するパートナー泊位です。",
+      slots: {
+        miit: { name: "工信人材基地" },
+        bytedance: { name: "ByteDance" },
+        alibaba: { name: "Alibaba Group" },
+        aliyun: { name: "Alibaba Cloud" },
+        huaweicloud: { name: "Huawei Cloud" },
+        baiducloud: { name: "Baidu AI Cloud" },
+        volcano: { name: "Volcano Engine" },
+        alibabaInternational: { name: "Alibaba.com" },
+        alpina: { name: "Alpina" },
+        xinghanyun: { name: "星瀚雲" },
+        gangganghao: { name: "剛剛好影視" },
+        idaas: { name: "IDaas 株式会社" }
+      }
+    },
     contact: {
       title: "企業 AI 指揮デッキを起動しますか？",
       body: "業務シナリオを一つ送ってください。Clawso Labs がプロセス、ナレッジ、Agent、納品結果の四つの視点で初期スキャンします。",
@@ -394,6 +458,7 @@ const sectionComms = {
     architecture: "Architecture Bay 航线图上线。",
     products: "Product Hangar 已开放。",
     scenario: "Scenario Deck 正在匹配业务场景。",
+    partners: "Partner Dock 已完成泊位校准。",
     contact: "Launch Contact 已准备接入。"
   },
   en: {
@@ -403,6 +468,7 @@ const sectionComms = {
     architecture: "Architecture Bay route map online.",
     products: "Product Hangar opened.",
     scenario: "Scenario Deck matching business cases.",
+    partners: "Partner Dock berths calibrated.",
     contact: "Launch Contact ready for intake."
   },
   ja: {
@@ -412,8 +478,15 @@ const sectionComms = {
     architecture: "Architecture Bay の航路図がオンライン。",
     products: "Product Hangar を開放しました。",
     scenario: "Scenario Deck が業務シナリオを照合中。",
+    partners: "Partner Dock の泊位を調整しました。",
     contact: "Launch Contact が接続待機中。"
   }
+};
+
+const deckDownloadFiles = {
+  zh: "./assets/Clawso_Labs_Command_Deck_zh.pdf",
+  en: "./assets/Clawso_Labs_Command_Deck_en.pdf",
+  ja: "./assets/Clawso_Labs_Command_Deck_ja.pdf"
 };
 
 let currentLang = localStorage.getItem("clawso-lang") || "zh";
@@ -441,6 +514,14 @@ function getValue(path) {
   return path.split(".").reduce((value, key) => value?.[key], copy[currentLang]);
 }
 
+function updateDeckDownloadLinks() {
+  const href = deckDownloadFiles[currentLang] || deckDownloadFiles.zh;
+
+  deckDownloadLinks.forEach((link) => {
+    link.setAttribute("href", href);
+  });
+}
+
 function setLanguage(lang) {
   currentLang = copy[lang] ? lang : "zh";
   localStorage.setItem("clawso-lang", currentLang);
@@ -457,6 +538,7 @@ function setLanguage(lang) {
     button.classList.toggle("is-active", button.dataset.lang === currentLang);
   });
 
+  updateDeckDownloadLinks();
   setActiveModule(activeModule);
   setActiveSection(activeSection);
 }

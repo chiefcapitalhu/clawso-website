@@ -8,7 +8,7 @@
       content="Clawso Labs 帮助企业把零散 AI 工具重构为可执行、可管理、可交付的 AI 生产系统。"
     />
     <title>Clawso Labs Command Deck</title>
-    <link rel="stylesheet" href="./src/styles.css?v=layout-20260521" />
+    <link rel="stylesheet" href="./src/styles.css?v=partners-20260522" />
   </head>
   <body>
     <canvas id="space-field" aria-hidden="true"></canvas>
@@ -88,13 +88,25 @@
             <a href="#capability">Capability</a>
             <a href="#architecture">Architecture</a>
             <a href="#products">Hangar</a>
+            <a href="#partners">Partners</a>
             <a href="#contact">Launch</a>
           </nav>
 
-          <div class="language-switcher" aria-label="Language">
-            <button type="button" class="is-active" data-lang="zh">中</button>
-            <button type="button" data-lang="en">EN</button>
-            <button type="button" data-lang="ja">日</button>
+          <div class="hud-actions">
+            <a
+              class="deck-download"
+              href="./assets/Clawso_Labs_Command_Deck_zh.pdf"
+              download
+              data-download-deck
+            >
+              <span data-i18n="download.deck">下载介绍资料</span>
+            </a>
+
+            <div class="language-switcher" aria-label="Language">
+              <button type="button" class="is-active" data-lang="zh">中</button>
+              <button type="button" data-lang="en">EN</button>
+              <button type="button" data-lang="ja">日</button>
+            </div>
           </div>
         </header>
 
@@ -175,6 +187,7 @@
           </div>
           <div class="mission-scanner" aria-hidden="true">
             <div class="scanner-core">
+              <span></span>
               <span></span>
               <span></span>
               <span></span>
@@ -295,6 +308,72 @@
           </div>
         </section>
 
+        <section class="partners-dock deck-section" id="partners" data-section="partners">
+          <div class="partner-briefing">
+            <div class="section-heading">
+              <p class="section-code">PARTNER DOCK</p>
+              <h2 data-i18n="partners.title">生态伙伴接入舱</h2>
+              <p data-i18n="partners.body">围绕人才、云基础设施、AI 平台与全球渠道，构建可接入企业 AI 指挥舱的伙伴泊位。</p>
+            </div>
+          </div>
+
+          <div class="partner-docking-grid" aria-label="Clawso Labs partner docking slots">
+            <article class="partner-slot is-locked logo-miit">
+              <div class="partner-mark"><img src="./assets/partners/miit-talent.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.miit.name">工信人才基地</h3>
+            </article>
+            <article class="partner-slot is-locked logo-wordmark">
+              <div class="partner-mark"><img src="./assets/partners/bytedance-hud.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.bytedance.name">字节跳动</h3>
+            </article>
+            <article class="partner-slot is-locked logo-wordmark">
+              <div class="partner-mark"><img src="./assets/partners/alibaba.svg" alt="" /></div>
+              <h3 data-i18n="partners.slots.alibaba.name">阿里巴巴</h3>
+            </article>
+            <article class="partner-slot is-locked logo-cloud-wordmark">
+              <div class="partner-mark"><img src="./assets/partners/alibaba-cloud-hud.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.aliyun.name">阿里云</h3>
+            </article>
+            <article class="partner-slot is-locked logo-cloud-wordmark">
+              <div class="partner-mark"><img src="./assets/partners/huawei-cloud-hud.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.huaweicloud.name">华为云</h3>
+            </article>
+            <article class="partner-slot is-locked logo-cloud-wordmark">
+              <div class="partner-mark"><img src="./assets/partners/baidu-smart-cloud-hud.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.baiducloud.name">百度云</h3>
+            </article>
+            <article class="partner-slot is-locked logo-wide">
+              <div class="partner-mark"><img src="./assets/partners/volcano-engine.svg" alt="" /></div>
+              <h3 data-i18n="partners.slots.volcano.name">火山引擎</h3>
+            </article>
+            <article class="partner-slot is-locked logo-international">
+              <div class="partner-mark"><img src="./assets/partners/alibaba-international-hud.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.alibabaInternational.name">阿里巴巴国际站</h3>
+            </article>
+            <article class="partner-slot is-locked logo-alpina">
+              <div class="partner-mark"><img src="./assets/partners/alpina-hud.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.alpina.name">Alpina</h3>
+            </article>
+            <article class="partner-slot is-locked logo-xinghan">
+              <div class="partner-mark">
+                <img src="./assets/partners/xinghanyun.svg" alt="" />
+                <span class="partner-logo-name">星瀚云</span>
+              </div>
+              <h3 data-i18n="partners.slots.xinghanyun.name">星瀚云</h3>
+            </article>
+            <article class="partner-slot is-locked logo-wide">
+              <div class="partner-mark"><img src="./assets/partners/gangganghao-film-hud.png" alt="" /></div>
+              <h3 data-i18n="partners.slots.gangganghao.name">刚刚好影视</h3>
+            </article>
+            <article class="partner-slot is-locked logo-idaas">
+              <div class="partner-mark">
+                <span class="partner-text-logo jp-logo" lang="ja"><span>IDaas</span><small>株式会社</small></span>
+              </div>
+              <h3 data-i18n="partners.slots.idaas.name">IDaas 株式会社</h3>
+            </article>
+          </div>
+        </section>
+
         <section class="launch-contact deck-section" id="contact" data-section="contact">
           <div>
             <p class="section-code">LAUNCH CONTACT</p>
@@ -308,7 +387,7 @@
         <nav class="mobile-dock" aria-label="快速舱室导航">
           <a href="#command-deck">CORE</a>
           <a href="#mission">SCAN</a>
-          <a href="#capability">MODULE</a>
+          <a href="#partners">PARTNER</a>
           <a href="#contact">LAUNCH</a>
         </nav>
       </div>
