@@ -681,6 +681,61 @@ a {
   font-size: 0.88rem;
 }
 
+.hud-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.deck-download {
+  position: relative;
+  min-height: 40px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 176, 32, 0.34);
+  background:
+    linear-gradient(180deg, rgba(255, 176, 32, 0.16), rgba(0, 216, 255, 0.06)),
+    rgba(3, 6, 10, 0.64);
+  color: rgba(245, 248, 255, 0.9);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.28), 0 0 18px rgba(255, 176, 32, 0.12);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  transition: border-color 160ms ease, box-shadow 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.deck-download::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent, rgba(255, 176, 32, 0.2), transparent);
+  transform: translateX(-120%);
+  transition: transform 480ms ease;
+}
+
+.deck-download span {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.deck-download:hover,
+.deck-download:focus-visible {
+  border-color: rgba(255, 176, 32, 0.68);
+  color: var(--text);
+  outline: none;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.28), 0 0 26px rgba(255, 176, 32, 0.2);
+  transform: translateY(-1px);
+}
+
+.deck-download:hover::before,
+.deck-download:focus-visible::before {
+  transform: translateX(120%);
+}
+
 .language-switcher {
   display: inline-grid;
   grid-auto-flow: column;
@@ -753,6 +808,7 @@ a {
 .architecture-bay,
 .product-hangar,
 .scenario-deck,
+.partners-dock,
 .launch-contact {
   width: min(1180px, calc(100% - 36px));
   margin: 0 auto;
@@ -1123,7 +1179,9 @@ a {
   justify-self: center;
   border: 1px solid rgba(0, 240, 200, 0.22);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 240, 200, 0.14), rgba(0, 216, 255, 0.04) 46%, transparent 68%);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0, 240, 200, 0.22) 0 5%, rgba(0, 240, 200, 0.08) 6% 19%, transparent 20%),
+    radial-gradient(circle, rgba(0, 240, 200, 0.12), rgba(0, 216, 255, 0.04) 46%, transparent 68%);
   box-shadow: inset 0 0 46px rgba(0, 216, 255, 0.08), 0 0 38px rgba(0, 216, 255, 0.12);
 }
 
@@ -1147,24 +1205,63 @@ a {
 }
 
 .scanner-core span:nth-child(1) {
-  inset: 44%;
+  top: 50%;
+  left: 50%;
+  width: 12%;
+  height: 12%;
+  margin: -6% 0 0 -6%;
   background: var(--mint);
+  border: 0;
   box-shadow: 0 0 28px var(--mint);
+  animation: radarCorePulse 1.8s ease-in-out infinite;
 }
 
 .scanner-core span:nth-child(2) {
-  width: 48%;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: 49%;
   height: 1px;
-  background: linear-gradient(90deg, var(--mint), transparent);
+  background: linear-gradient(90deg, rgba(0, 240, 200, 0.98), rgba(0, 240, 200, 0.42) 48%, transparent);
   border: 0;
   border-radius: 0;
-  transform-origin: left center;
-  animation: spin 3.8s linear infinite;
+  transform-origin: 0 50%;
+  animation: radarSweepRotate 3.8s linear infinite;
+  box-shadow: 0 0 14px rgba(0, 240, 200, 0.5);
 }
 
 .scanner-core span:nth-child(3) {
   inset: 2%;
   border-color: rgba(255, 176, 32, 0.18);
+}
+
+.scanner-core span:nth-child(4) {
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 49%;
+  height: 49%;
+  border: 0;
+  border-radius: 0;
+  transform-origin: 0 0;
+  background: conic-gradient(from -18deg at 0 0, rgba(0, 240, 200, 0.26), rgba(0, 216, 255, 0.1) 18deg, transparent 36deg);
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 0);
+  filter: blur(0.4px);
+  animation: radarSweepRotate 3.8s linear infinite;
+  opacity: 0.76;
+}
+
+.scanner-core span:nth-child(4)::after {
+  content: "";
+  position: absolute;
+  right: 12%;
+  top: 18%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(0, 240, 200, 0.74);
+  box-shadow: 0 0 16px rgba(0, 240, 200, 0.54);
+  animation: radarBlip 3.8s linear infinite;
 }
 
 .scanner-readouts {
@@ -1819,6 +1916,361 @@ html[lang="ja"] .launch-contact p:not(.section-code) {
   opacity: 1;
 }
 
+.partners-dock {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  isolation: isolate;
+  padding: clamp(86px, 11vw, 128px) clamp(18px, 5vw, 72px);
+  border-top: 1px solid rgba(0, 216, 255, 0.14);
+  border-bottom: 1px solid rgba(0, 216, 255, 0.14);
+  background:
+    linear-gradient(90deg, rgba(3, 6, 10, 0.9) 0%, rgba(3, 6, 10, 0.72) 36%, rgba(3, 6, 10, 0.28) 68%, rgba(3, 6, 10, 0.76) 100%),
+    linear-gradient(180deg, rgba(3, 6, 10, 0.22), rgba(3, 6, 10, 0.48) 48%, rgba(3, 6, 10, 0.92)),
+    url("../assets/partner-dock.png") center / cover no-repeat,
+    #07111b;
+  box-shadow: inset 0 0 90px rgba(0, 216, 255, 0.035);
+  overflow: hidden;
+}
+
+.partner-briefing {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, 100%);
+  margin: 0 auto 34px;
+}
+
+.partners-dock .section-heading {
+  max-width: 660px;
+  align-content: center;
+  margin-bottom: 0;
+}
+
+.partners-dock .section-heading > p:not(.section-code) {
+  max-width: 720px;
+  margin: 0;
+  color: var(--body);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.partners-dock::before,
+.partners-dock::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.partners-dock::before {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(0, 216, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0, 216, 255, 0.035) 1px, transparent 1px);
+  background-size: 78px 78px;
+  mask-image: linear-gradient(180deg, transparent, black 24%, black 76%, transparent);
+  opacity: 0.36;
+}
+
+.partners-dock::after {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, transparent, rgba(0, 216, 255, 0.14), transparent),
+    linear-gradient(180deg, transparent 64%, rgba(0, 0, 0, 0.36));
+  transform: translateX(-72%);
+  animation: scannerSweep 6.2s ease-in-out infinite;
+  opacity: 0.28;
+}
+
+.partner-docking-grid {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: clamp(14px, 2.6vw, 24px);
+  border: 1px solid rgba(0, 216, 255, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 24%),
+    radial-gradient(circle at 50% 0%, rgba(0, 216, 255, 0.08), transparent 24rem),
+    linear-gradient(90deg, rgba(0, 216, 255, 0.06), transparent 44%, rgba(255, 176, 32, 0.035)),
+    rgba(3, 6, 10, 0.72);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 54px rgba(0, 216, 255, 0.045), 0 28px 70px rgba(0, 0, 0, 0.26);
+  overflow: hidden;
+}
+
+.partner-docking-grid::before,
+.partner-docking-grid::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.partner-docking-grid::before {
+  inset: 16px;
+  border: 1px solid rgba(0, 216, 255, 0.08);
+}
+
+.partner-docking-grid::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(0, 240, 200, 0.34), transparent);
+  box-shadow: 0 0 26px rgba(0, 216, 255, 0.18);
+  opacity: 0.34;
+}
+
+.partner-slot {
+  --logo-w: 176px;
+  --logo-h: 38px;
+  position: relative;
+  min-height: 132px;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  border: 1px solid rgba(105, 180, 205, 0.12);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), transparent 30%),
+    linear-gradient(180deg, rgba(0, 216, 255, 0.035), transparent 42%),
+    rgba(6, 12, 20, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -18px 36px rgba(0, 0, 0, 0.28),
+    inset 0 0 24px rgba(0, 216, 255, 0.025);
+  overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.partner-slot::before,
+.partner-slot::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.partner-slot::before {
+  inset: 13px;
+  border: 1px solid rgba(150, 210, 225, 0.055);
+  clip-path: polygon(9% 0, 91% 0, 100% 16%, 100% 84%, 91% 100%, 9% 100%, 0 84%, 0 16%);
+}
+
+.partner-slot::after {
+  right: 18px;
+  bottom: 14px;
+  width: 34px;
+  height: 1px;
+  background: rgba(0, 240, 200, 0.32);
+  box-shadow: 0 0 10px rgba(0, 240, 200, 0.14);
+}
+
+.partner-slot:hover {
+  border-color: rgba(0, 240, 200, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -18px 36px rgba(0, 0, 0, 0.28),
+    inset 0 0 28px rgba(0, 216, 255, 0.045),
+    0 0 18px rgba(0, 216, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+.partner-mark,
+.partner-slot h3 {
+  position: relative;
+  z-index: 1;
+}
+
+.partner-mark {
+  width: 100%;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  place-items: center;
+  gap: 16px;
+  padding: 0;
+  border: 1px solid rgba(125, 185, 205, 0.055);
+  background:
+    linear-gradient(90deg, transparent 0 12%, rgba(190, 230, 235, 0.025) 50%, transparent 88%),
+    radial-gradient(circle at 50% 50%, rgba(0, 216, 255, 0.045), transparent 72%),
+    rgba(2, 6, 11, 0.26);
+  box-shadow: inset 0 0 18px rgba(0, 216, 255, 0.022);
+}
+
+.partner-mark::after {
+  content: "";
+  position: absolute;
+  inset: auto 30px 8px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(190, 230, 235, 0.12), transparent);
+}
+
+.partner-mark img {
+  width: var(--logo-w);
+  height: var(--logo-h);
+  object-fit: contain;
+  filter: grayscale(1) saturate(0) brightness(1.52) contrast(0.94) opacity(0.84) drop-shadow(0 0 10px rgba(0, 216, 255, 0.14));
+  mix-blend-mode: screen;
+}
+
+.partner-text-logo {
+  color: rgba(245, 248, 255, 0.82);
+  font-family: "Avenir Next Condensed", "Arial Narrow", "SF Pro Display", "Segoe UI", sans-serif;
+  font-size: 1.92rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(0, 216, 255, 0.18);
+}
+
+.partner-slot.is-reserved {
+  border-color: rgba(255, 176, 32, 0.26);
+}
+
+.logo-miit {
+  --logo-w: 160px;
+  --logo-h: 24px;
+}
+
+.logo-wordmark {
+  --logo-w: 146px;
+  --logo-h: 32px;
+}
+
+.logo-wide {
+  --logo-w: 148px;
+  --logo-h: 32px;
+}
+
+.logo-symbol {
+  --logo-w: 62px;
+  --logo-h: 40px;
+}
+
+.logo-badge {
+  --logo-w: 112px;
+  --logo-h: 31px;
+}
+
+.logo-alpina {
+  --logo-w: 150px;
+  --logo-h: 38px;
+}
+
+.logo-alpina .partner-mark img {
+  filter: opacity(0.86) drop-shadow(0 0 10px rgba(0, 216, 255, 0.14));
+}
+
+.partner-slot h3 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.logo-cloud-wordmark {
+  --logo-w: 148px;
+  --logo-h: 35px;
+}
+
+.logo-cloud-wordmark .partner-mark img {
+  flex: 0 0 auto;
+  filter: opacity(0.86) drop-shadow(0 0 10px rgba(0, 216, 255, 0.14));
+}
+
+.logo-international {
+  --logo-w: 132px;
+  --logo-h: 30px;
+}
+
+.logo-international .partner-mark img {
+  filter: opacity(0.86) drop-shadow(0 0 10px rgba(0, 216, 255, 0.14));
+}
+
+.logo-wordmark .partner-mark img[src$="bytedance-hud.png"] {
+  width: 145px;
+  height: 40px;
+  filter: opacity(0.86) drop-shadow(0 0 10px rgba(0, 216, 255, 0.14));
+}
+
+.logo-cloud-wordmark .partner-mark img[src$="alibaba-cloud-hud.png"] {
+  width: 146px;
+  height: 35px;
+}
+
+.logo-cloud-wordmark .partner-mark img[src$="huawei-cloud-hud.png"] {
+  width: 154px;
+  height: 38px;
+}
+
+.logo-cloud-wordmark .partner-mark img[src$="baidu-smart-cloud-hud.png"] {
+  width: 152px;
+  height: 37px;
+}
+
+.logo-xinghan .partner-mark {
+  gap: 10px;
+}
+
+.logo-xinghan .partner-mark img {
+  width: 34px;
+  height: 24px;
+  filter: grayscale(1) saturate(0) brightness(1.62) contrast(0.92) opacity(0.82) drop-shadow(0 0 9px rgba(0, 216, 255, 0.14));
+}
+
+.partner-logo-name {
+  color: rgba(242, 248, 255, 0.84);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "SF Pro Display", sans-serif;
+  font-size: 1.02rem;
+  font-weight: 520;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(0, 216, 255, 0.12);
+  white-space: nowrap;
+}
+
+.logo-idaas .partner-text-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.42em;
+  padding: 0.12em 0.18em 0.16em;
+  border-top: 1px solid rgba(245, 248, 255, 0.34);
+  border-bottom: 1px solid rgba(245, 248, 255, 0.28);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", "Noto Serif JP", "Songti SC", serif;
+  font-size: 1.82rem;
+  font-weight: 500;
+  letter-spacing: 0.035em;
+  transform: translateY(-1px);
+}
+
+.logo-idaas .partner-text-logo span {
+  font-feature-settings: "palt";
+}
+
+.logo-idaas .partner-text-logo small {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+  font-size: 0.62em;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  opacity: 0.88;
+}
+
+.logo-wide .partner-mark img[src$="gangganghao-film-hud.png"] {
+  width: 148px;
+  height: 42px;
+  filter: opacity(0.84) drop-shadow(0 0 10px rgba(0, 216, 255, 0.16));
+  mix-blend-mode: screen;
+  object-fit: contain;
+}
+
 .launch-contact {
   position: relative;
   display: grid;
@@ -2138,6 +2590,41 @@ html[lang="ja"] .launch-contact p:not(.section-code) {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes radarSweepRotate {
+  from {
+    transform: rotate(-154deg);
+  }
+  to {
+    transform: rotate(206deg);
+  }
+}
+
+@keyframes radarCorePulse {
+  50% {
+    opacity: 0.78;
+    transform: scale(0.82);
+    box-shadow: 0 0 38px rgba(0, 240, 200, 0.92), 0 0 86px rgba(0, 216, 255, 0.22);
+  }
+}
+
+@keyframes radarBlip {
+  0%,
+  34%,
+  100% {
+    opacity: 0;
+    transform: scale(0.62);
+  }
+  42%,
+  52% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  64% {
+    opacity: 0;
+    transform: scale(1.8);
   }
 }
 
@@ -2525,6 +3012,16 @@ html[lang="ja"] .launch-contact p:not(.section-code) {
     display: none;
   }
 
+  .hud-actions {
+    margin-left: auto;
+  }
+
+  .deck-download {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 0.68rem;
+  }
+
   .hero-deck {
     grid-template-columns: 1fr;
     min-height: calc(100vh - 65px);
@@ -2613,6 +3110,14 @@ html[lang="ja"] .launch-contact p:not(.section-code) {
     background-position: center right;
   }
 
+  .partner-docking-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .partner-briefing {
+    width: min(100%, 1180px);
+  }
+
   .launch-contact {
     grid-template-columns: 1fr minmax(220px, 0.8fr);
   }
@@ -2695,6 +3200,25 @@ html[lang="ja"] .launch-contact p:not(.section-code) {
     min-height: 74px;
     padding: 10px 14px;
     gap: 10px;
+  }
+
+  .hud-actions {
+    gap: 6px;
+  }
+
+  .deck-download {
+    min-width: 62px;
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+  }
+
+  .deck-download span {
+    max-width: 8.5em;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
   }
 
   .brand-mark {
@@ -3004,6 +3528,57 @@ html[lang="ja"] .launch-contact p:not(.section-code) {
   .scenario-list span::after {
     left: 16px;
     opacity: 1;
+  }
+
+  .partners-dock .section-heading > p:not(.section-code) {
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .partners-dock {
+    padding: 58px 14px;
+    background-position: 56% center;
+  }
+
+  .partner-briefing {
+    margin-bottom: 18px;
+  }
+
+  .partner-docking-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+    background:
+      linear-gradient(180deg, rgba(0, 216, 255, 0.08), transparent 22%),
+      rgba(3, 6, 10, 0.58);
+  }
+
+  .partner-docking-grid::before {
+    inset: 8px;
+  }
+
+  .partner-docking-grid::after {
+    top: 10px;
+    bottom: 10px;
+    left: 21px;
+    background: linear-gradient(180deg, rgba(0, 240, 200, 0.34), transparent);
+  }
+
+  .partner-slot {
+    min-height: 108px;
+    padding: 16px 14px 15px;
+  }
+
+  .partner-slot::before {
+    inset: 8px;
+  }
+
+  .partner-mark {
+    min-height: 66px;
+  }
+
+  .partner-slot h3 {
+    display: none;
   }
 
   .mobile-dock {
